@@ -32,10 +32,10 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Rumput & Penutup Tanah', 'description' => 'Berbagai jenis rumput dan tanaman penutup tanah.'],
         ];
 
-        foreach ($categories as $i => $cat) {
+        foreach ($categories as $cat) {
             Category::updateOrCreate(
                 ['name' => $cat['name']],
-                array_merge($cat, ['sort_order' => $i + 1])
+                $cat
             );
         }
 
@@ -58,5 +58,8 @@ class DatabaseSeeder extends Seeder
         ];
 
         SiteSetting::setMany($settings);
+
+        // Seed produk contoh
+        $this->call(ProductSeeder::class);
     }
 }

@@ -15,6 +15,7 @@ class DashboardController extends Controller
             'active_products'   => Product::where('is_active', true)->count(),
             'featured_products' => Product::where('is_featured', true)->count(),
             'total_categories'  => Category::count(),
+            'active_slides'     => \App\Models\HeroSlide::where('is_active', true)->count(),
         ];
 
         $latestProducts = Product::with('category')->latest()->take(5)->get();

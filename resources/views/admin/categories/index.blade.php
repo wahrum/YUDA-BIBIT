@@ -24,7 +24,6 @@
                 <th class="px-6 py-3 text-left hidden md:table-cell">Deskripsi</th>
                 <th class="px-6 py-3 text-center">Produk</th>
                 <th class="px-6 py-3 text-center">Status</th>
-                <th class="px-6 py-3 text-center">Urutan</th>
                 <th class="px-6 py-3 text-right">Aksi</th>
             </tr>
         </thead>
@@ -58,7 +57,6 @@
                             {{ $category->is_active ? '● Aktif' : '○ Nonaktif' }}
                         </span>
                     </td>
-                    <td class="px-6 py-4 text-center text-gray-500">{{ $category->sort_order }}</td>
                     <td class="px-6 py-4">
                         <div class="flex items-center justify-end gap-2">
                             <a href="{{ route('admin.categories.edit', $category) }}"

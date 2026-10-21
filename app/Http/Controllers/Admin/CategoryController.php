@@ -12,7 +12,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::withCount('products')->orderBy('sort_order')->get();
+        $categories = Category::withCount('products')->orderBy('name')->get();
         return view('admin.categories.index', compact('categories'));
     }
 
@@ -23,21 +23,25 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $request->validate([
             'name'        => ['required', 'string', 'max:100'],
             'description' => ['nullable', 'string'],
             'image'       => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
-            'is_active'   => ['boolean'],
-            'sort_order'  => ['integer', 'min:0'],
+            'is_active'   => ['nullable'],
         ]);
 
+        $data = [
+            'name'        => $request->input('name'),
+            'slug'        => Str::slug($request->input('name')),
+            'description' => $request->input('description') ?: null,
+            'is_active'   => $request->input('is_active', '0') === '1',
+        ];
+
         if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('categories', 'public');
+            $data['image'] = $request->file('image')->store('categories', 'public');
         }
 
-        $validated['slug'] = Str::slug($validated['name']);
-
-        Category::create($validated);
+        Category::create($data);
 
         return redirect()->route('admin.categories.index')
             ->with('success', 'Kategori berhasil ditambahkan.');
@@ -50,28 +54,31 @@ class CategoryController extends Controller
 
     public function update(Request $request, Category $category)
     {
-        $validated = $request->validate([
+        $request->validate([
             'name'        => ['required', 'string', 'max:100'],
             'description' => ['nullable', 'string'],
             'image'       => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
-            'is_active'   => ['boolean'],
-            'sort_order'  => ['integer', 'min:0'],
+            'is_active'   => ['nullable'],
         ]);
 
+        $data = [
+            'name'        => $request->input('name'),
+            'slug'        => Str::slug($request->input('name')),
+            'description' => $request->input('description') ?: null,
+            'is_active'   => $request->input('is_active', '0') === '1',
+        ];
+
         if ($request->hasFile('image')) {
-            // Hapus gambar lama
             if ($category->image) {
                 Storage::disk('public')->delete($category->image);
             }
-            $validated['image'] = $request->file('image')->store('categories', 'public');
+            $data['image'] = $request->file('image')->store('categories', 'public');
         }
 
-        $validated['slug'] = Str::slug($validated['name']);
-
-        $category->update($validated);
+        $category->update($data);
 
         return redirect()->route('admin.categories.index')
-            ->with('success', 'Kategori berhasil diperbarui.');
+            ->with('success', 'Kategori "' . $category->fresh()->name . '" berhasil diperbarui.');
     }
 
     public function destroy(Category $category)

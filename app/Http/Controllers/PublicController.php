@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\HeroSlide;
 use App\Models\Product;
 use App\Models\SiteSetting;
 
@@ -13,6 +14,14 @@ class PublicController extends Controller
      */
     public function index()
     {
+        $slides = HeroSlide::where('is_active', true)
+            ->orderBy('sort_order')
+            ->orderBy('id')
+            ->get();
+
+        $heroSlides = $slides->where('type', 'hero')->values();
+        $aboutSlides = $slides->where('type', 'about')->values();
+
         $featuredProducts = Product::with('category')
             ->where('is_active', true)
             ->where('is_featured', true)
@@ -22,7 +31,7 @@ class PublicController extends Controller
 
         $categories = Category::withCount(['activeProducts'])
             ->where('is_active', true)
-            ->orderBy('sort_order')
+            ->orderBy('name')
             ->get();
 
         $latestProducts = Product::with('category')
@@ -31,7 +40,7 @@ class PublicController extends Controller
             ->take(6)
             ->get();
 
-        return view('public.home', compact('featuredProducts', 'categories', 'latestProducts'));
+        return view('public.home', compact('slides', 'heroSlides', 'aboutSlides', 'featuredProducts', 'categories', 'latestProducts'));
     }
 
     /**
@@ -40,7 +49,7 @@ class PublicController extends Controller
     public function products()
     {
         $categories = Category::where('is_active', true)
-            ->orderBy('sort_order')
+            ->orderBy('name')
             ->get();
 
         $query = Product::with('category')->where('is_active', true);

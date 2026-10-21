@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PublicController;
+use App\Http\Controllers\Admin\HeroSlideController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\CategoryController;
@@ -36,5 +37,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
         // Pengaturan Situs
         Route::get('/settings', [SettingController::class, 'index'])->name('settings');
         Route::post('/settings', [SettingController::class, 'update'])->name('settings.update');
+
+        // Hero Slides
+        Route::get('/slides', [HeroSlideController::class, 'index'])->name('slides.index');
+        Route::post('/slides', [HeroSlideController::class, 'store'])->name('slides.store');
+        Route::post('/slides/{slide}/toggle', [HeroSlideController::class, 'toggleActive'])->name('slides.toggle');
+        Route::put('/slides/{slide}', [HeroSlideController::class, 'update'])->name('slides.update');
+        Route::delete('/slides/{slide}', [HeroSlideController::class, 'destroy'])->name('slides.destroy');
     });
 });

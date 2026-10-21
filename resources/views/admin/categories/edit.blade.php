@@ -39,13 +39,7 @@
             </div>
 
             <div class="grid grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1.5">Urutan Tampil</label>
-                    <input type="number" name="sort_order" value="{{ old('sort_order', $category->sort_order) }}" min="0"
-                           class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-400 text-sm">
-                </div>
-
-                <div class="flex items-end">
+                <div class="flex items-center">
                     <label class="flex items-center gap-3 cursor-pointer">
                         <input type="hidden" name="is_active" value="0">
                         <input type="checkbox" name="is_active" value="1" {{ old('is_active', $category->is_active ? '1' : '0') == '1' ? 'checked' : '' }}
