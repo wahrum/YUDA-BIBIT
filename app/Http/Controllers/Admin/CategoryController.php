@@ -83,17 +83,27 @@ class CategoryController extends Controller
 
     public function destroy(Category $category)
     {
-        if ($category->products()->count() > 0) {
-            return back()->with('error', 'Kategori tidak dapat dihapus karena masih memiliki produk.');
+        // Hapus semua foto produk dalam kategori ini dari storage
+        foreach ($category->products()->with('images')->get() as $product) {
+            // Hapus foto galeri
+            foreach ($product->images as $img) {
+                Storage::disk('public')->delete($img->image);
+            }
+            // Hapus foto utama
+            if ($product->image) {
+                Storage::disk('public')->delete($product->image);
+            }
         }
 
+        // Hapus foto kategori
         if ($category->image) {
             Storage::disk('public')->delete($category->image);
         }
 
+        // Hapus kategori — produk ikut terhapus otomatis (cascade)
         $category->delete();
 
         return redirect()->route('admin.categories.index')
-            ->with('success', 'Kategori berhasil dihapus.');
+            ->with('success', 'Kategori dan semua produknya berhasil dihapus.');
     }
 }

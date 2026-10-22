@@ -67,7 +67,7 @@
                                 </svg>
                             </a>
                             <form method="POST" action="{{ route('admin.categories.destroy', $category) }}"
-                                  onsubmit="return confirm('Hapus kategori \'{{ $category->name }}\'?')">
+                                  onsubmit="return confirm('Hapus kategori \'{{ $category->name }}\'?\n\nSemua produk ({{ $category->products_count }} produk) dalam kategori ini juga akan ikut terhapus!\n\nTindakan ini tidak dapat dibatalkan.')">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="text-red-500 hover:text-red-700 p-1.5 hover:bg-red-50 rounded-lg transition" title="Hapus">
