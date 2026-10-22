@@ -124,7 +124,15 @@
                             <li class="flex gap-2">
                                 <span>📷</span>
                                 <a href="https://instagram.com/{{ \App\Models\SiteSetting::get('site_instagram') }}" target="_blank" class="hover:text-white transition">
-                                    @{{ \App\Models\SiteSetting::get('site_instagram') }}
+                                    {{ '@' . \App\Models\SiteSetting::get('site_instagram') }}
+                                </a>
+                            </li>
+                        @endif
+                        @if(\App\Models\SiteSetting::get('site_facebook'))
+                            <li class="flex gap-2">
+                                <span>👥</span>
+                                <a href="https://facebook.com/{{ \App\Models\SiteSetting::get('site_facebook') }}" target="_blank" class="hover:text-white transition">
+                                    {{ \App\Models\SiteSetting::get('site_facebook') }}
                                 </a>
                             </li>
                         @endif
