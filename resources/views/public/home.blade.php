@@ -97,10 +97,10 @@
             🌿 Toko Tanaman & Bibit Terpercaya
         </span>
         <h1 class="text-4xl md:text-6xl font-bold text-white leading-tight mb-6">
-            {{ \App\Models\SiteSetting::get('hero_title', 'Temukan Tanaman Impian Anda') }}
+            Temukan Tanaman Impian Anda
         </h1>
         <p class="text-primary-200 text-lg md:text-xl max-w-2xl mx-auto mb-10">
-            {{ \App\Models\SiteSetting::get('hero_subtitle', 'Koleksi tanaman hias & bibit berkualitas untuk rumah dan taman Anda') }}
+            Koleksi tanaman hias &amp; bibit berkualitas untuk rumah dan taman Anda
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
             <a href="{{ route('products') }}" class="bg-primary-500 hover:bg-primary-400 text-white font-semibold px-8 py-4 rounded-full transition shadow-lg">

@@ -48,20 +48,10 @@
             </div>
         </div>
 
-        {{-- Hero Section --}}
+        {{-- Tentang Kami --}}
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-            <h3 class="font-bold text-forest mb-5 pb-2 border-b border-gray-100">Hero / Banner Utama</h3>
+            <h3 class="font-bold text-forest mb-5 pb-2 border-b border-gray-100">Tentang Kami</h3>
             <div class="space-y-4">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1.5">Judul Hero</label>
-                    <input type="text" name="hero_title" value="{{ old('hero_title', $settings['hero_title']) }}"
-                           class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-400 text-sm">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1.5">Subjudul Hero</label>
-                    <textarea name="hero_subtitle" rows="2"
-                              class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-400 text-sm resize-none">{{ old('hero_subtitle', $settings['hero_subtitle']) }}</textarea>
-                </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1.5">Judul Tentang Kami</label>
                     <input type="text" name="about_title" value="{{ old('about_title', $settings['about_title']) }}"

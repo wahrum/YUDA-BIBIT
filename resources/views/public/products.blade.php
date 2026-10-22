@@ -5,7 +5,16 @@
 @section('content')
 
 {{-- ── Header halaman ──────────────────────────────────────────────────────────── --}}
-<div class="bg-forest py-12 text-center">
+<div class="bg-forest py-10 text-center relative">
+    {{-- Tombol Back --}}
+    <button onclick="history.back()"
+            class="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 inline-flex items-center gap-2 text-sm text-primary-200 hover:text-white font-medium transition group">
+        <svg class="w-4 h-4 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+        </svg>
+        <span class="hidden sm:inline">Kembali</span>
+    </button>
+
     <h1 class="text-3xl font-bold text-white mb-2">
         {{ $activeCategory ? $activeCategory->name : 'Semua Produk' }}
     </h1>

@@ -154,20 +154,39 @@
             <div class="flex gap-6 pt-1">
                 <label class="flex items-center gap-3 cursor-pointer">
                     <input type="hidden" name="is_active" value="0">
-                    <input type="checkbox" name="is_active" value="1"
+                    <input type="checkbox" name="is_active" id="is_active" value="1"
                            {{ old('is_active', $product->is_active ? '1' : '0') == '1' ? 'checked' : '' }}
-                           class="w-5 h-5 accent-primary-600">
+                           class="w-5 h-5 accent-primary-600"
+                           onchange="toggleFeatured(this)">
                     <span class="text-sm font-medium text-gray-700">Produk Aktif</span>
                 </label>
 
-                <label class="flex items-center gap-3 cursor-pointer">
+                <label id="featured-label" class="flex items-center gap-3 {{ old('is_active', $product->is_active ? '1' : '0') == '1' ? 'cursor-pointer' : 'cursor-not-allowed opacity-40' }}">
                     <input type="hidden" name="is_featured" value="0">
-                    <input type="checkbox" name="is_featured" value="1"
+                    <input type="checkbox" name="is_featured" id="is_featured" value="1"
                            {{ old('is_featured', $product->is_featured ? '1' : '0') == '1' ? 'checked' : '' }}
+                           {{ old('is_active', $product->is_active ? '1' : '0') == '1' ? '' : 'disabled' }}
                            class="w-5 h-5 accent-yellow-500">
                     <span class="text-sm font-medium text-gray-700">⭐ Produk Unggulan</span>
                 </label>
             </div>
+
+            <script>
+            function toggleFeatured(checkbox) {
+                const featuredInput = document.getElementById('is_featured');
+                const featuredLabel = document.getElementById('featured-label');
+                if (checkbox.checked) {
+                    featuredInput.disabled = false;
+                    featuredLabel.classList.remove('cursor-not-allowed', 'opacity-40');
+                    featuredLabel.classList.add('cursor-pointer');
+                } else {
+                    featuredInput.disabled = true;
+                    featuredInput.checked = false;
+                    featuredLabel.classList.remove('cursor-pointer');
+                    featuredLabel.classList.add('cursor-not-allowed', 'opacity-40');
+                }
+            }
+            </script>
 
             {{-- Tombol Aksi --}}
             <div class="flex gap-3 pt-2 border-t border-gray-100">
@@ -178,8 +197,11 @@
                     </svg>
                     Simpan Perubahan
                 </button>
-                <a href="{{ route('admin.products.index') }}"
+                <a href="javascript:history.back()"
                    class="flex items-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold px-6 py-3 rounded-xl text-sm transition">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                    </svg>
                     Batal
                 </a>
             </div>

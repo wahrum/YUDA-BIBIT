@@ -35,7 +35,6 @@ class PublicController extends Controller
             ->get();
 
         $latestProducts = Product::with('category')
-            ->where('is_active', true)
             ->latest()
             ->take(6)
             ->get();
@@ -52,7 +51,7 @@ class PublicController extends Controller
             ->orderBy('name')
             ->get();
 
-        $query = Product::with('category')->where('is_active', true);
+        $query = Product::with('category');
 
         if (request('category')) {
             $query->whereHas('category', fn($q) => $q->where('slug', request('category')));
@@ -78,7 +77,6 @@ class PublicController extends Controller
     {
         $product = Product::with(['category', 'images'])
             ->where('slug', $slug)
-            ->where('is_active', true)
             ->firstOrFail();
 
         $relatedProducts = Product::with('category')

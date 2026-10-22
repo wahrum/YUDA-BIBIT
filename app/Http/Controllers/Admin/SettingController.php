@@ -16,7 +16,6 @@ class SettingController extends Controller
             'site_address', 'site_phone', 'site_whatsapp', 'site_email',
             'site_instagram', 'site_facebook',
             'whatsapp_message',
-            'hero_title', 'hero_subtitle',
             'about_title', 'about_content',
             'site_logo',
         ];
@@ -42,7 +41,6 @@ class SettingController extends Controller
             'site_address', 'site_phone', 'site_whatsapp', 'site_email',
             'site_instagram', 'site_facebook',
             'whatsapp_message',
-            'hero_title', 'hero_subtitle',
             'about_title', 'about_content',
         ];
 
@@ -58,6 +56,9 @@ class SettingController extends Controller
             $path = $request->file('site_logo')->store('brand', 'public');
             SiteSetting::set('site_logo', $path);
         }
+
+        // Clear semua cache agar perubahan langsung berlaku
+        \Illuminate\Support\Facades\Cache::flush();
 
         return back()->with('success', 'Pengaturan berhasil disimpan.');
     }

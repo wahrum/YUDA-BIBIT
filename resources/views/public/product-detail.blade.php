@@ -6,29 +6,36 @@
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
 
-    {{-- Breadcrumb --}}
-    <nav class="text-sm text-gray-400 mb-6 flex flex-wrap items-center gap-1">
-        <a href="{{ route('home') }}" class="hover:text-primary-700">Beranda</a>
-        <span>/</span>
-        <a href="{{ route('products') }}" class="hover:text-primary-700">Produk</a>
-        <span>/</span>
-        <a href="{{ route('products', ['category' => $product->category->slug]) }}" class="hover:text-primary-700">{{ $product->category->name }}</a>
-        <span>/</span>
-        <span class="text-gray-600 truncate max-w-xs">{{ $product->name }}</span>
-    </nav>
+    {{-- Tombol Back --}}
+    <button onclick="history.back()"
+            class="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-forest font-medium mb-5 transition group">
+        <svg class="w-4 h-4 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+        </svg>
+        Kembali
+    </button>
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
 
         {{-- ── Galeri Foto ────────────────────────────────────────────────────── --}}
         <div>
             {{-- Foto utama --}}
-            <div class="aspect-square rounded-2xl overflow-hidden bg-primary-50 mb-3" id="main-image-wrap">
+            <div class="aspect-square rounded-2xl overflow-hidden bg-primary-50 mb-3 relative" id="main-image-wrap">
                 @if($product->image)
                     <img src="{{ $product->image_url }}" alt="{{ $product->name }}"
                          id="main-image"
                          class="w-full h-full object-cover">
                 @else
                     <div class="w-full h-full flex items-center justify-center text-8xl">🌿</div>
+                @endif
+
+                {{-- Overlay "Tidak Tersedia" di tengah gambar --}}
+                @if(!$product->is_active)
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="bg-white/70 backdrop-blur-sm px-5 py-3 rounded-xl shadow-md text-center">
+                            <p class="text-gray-700 font-semibold text-sm tracking-wide">Tidak Tersedia</p>
+                        </div>
+                    </div>
                 @endif
             </div>
 
