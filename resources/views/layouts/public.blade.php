@@ -48,6 +48,15 @@
                     <a href="{{ route('products') }}" class="text-primary-200 hover:text-white transition font-medium {{ request()->routeIs('products*') ? 'text-white' : '' }}">Produk</a>
                     <a href="{{ route('home') }}#tentang" class="text-primary-200 hover:text-white transition font-medium">Tentang</a>
                     <a href="{{ route('home') }}#kontak" class="text-primary-200 hover:text-white transition font-medium">Kontak</a>
+
+                    {{-- Tombol Login Admin --}}
+                    <a href="{{ route('admin.login') }}"
+                       class="flex items-center gap-1.5 text-primary-200 hover:text-white border border-primary-400/40 hover:border-white/60 px-3 py-1.5 rounded-lg text-sm transition font-medium">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                        </svg>
+                        Admin
+                    </a>
                 </nav>
 
                 {{-- Mobile hamburger --}}
@@ -64,6 +73,16 @@
                 <a href="{{ route('products') }}" class="block text-primary-200 hover:text-white py-2 font-medium">Produk</a>
                 <a href="{{ route('home') }}#tentang" class="block text-primary-200 hover:text-white py-2 font-medium">Tentang</a>
                 <a href="{{ route('home') }}#kontak" class="block text-primary-200 hover:text-white py-2 font-medium">Kontak</a>
+                {{-- Login Admin Mobile --}}
+                <div class="border-t border-primary-800/40 pt-2 mt-2">
+                    <a href="{{ route('admin.login') }}"
+                       class="flex items-center gap-2 text-primary-300 hover:text-white py-2 font-medium text-sm">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                        </svg>
+                        Login Admin
+                    </a>
+                </div>
             </div>
         </div>
     </header>
